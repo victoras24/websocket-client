@@ -1,26 +1,24 @@
 const ws = new WebSocket("ws:localhost:8080");
+const button = document.querySelector<HTMLButtonElement>("button");
+const input = document.querySelector<HTMLInputElement>("input");
+const output = document.querySelector<HTMLDivElement>("#output");
 
-const button = document.getElementById("button");
-const input = document.getElementById("input");
-const output = document.querySelector("#output");
-
-function send(input) {
-	ws.send(input.value);
-	DisplayToThePage(input.value);
-	input.value = "";
+function send(input: HTMLInputElement) {
+	if (ws.readyState === 1) {
+		ws.send(input.value);
+		DisplayToThePage(input.value);
+		input.value = "";
+	}
 }
 
-button.addEventListener("click", () => {
-	send(input);
+button?.addEventListener("click", () => {
+	input && send(input);
 });
 
 ws.addEventListener("message", (e) => {
 	console.log(e.data);
+	output?.insertAdjacentHTML("afterbegin", `<p>SERVER: ${e.data}</p>`);
 });
-
-onmessage = (e) => {
-	output.insertAdjacentHTML("afterbegin", `<p>SERVER: ${e.data}</p>`);
-};
 
 ws.addEventListener("open", () => {
 	ws.send("Hello from the client.");
@@ -45,6 +43,6 @@ onerror = (e) => {
 	console.log("error", e);
 };
 
-function DisplayToThePage(message) {
-	output.insertAdjacentHTML("afterbegin", `<p>CLIENT: ${message}</p>`);
+function DisplayToThePage(message: string) {
+	output?.insertAdjacentHTML("afterbegin", `<p>CLIENT: ${message}</p>`);
 }
