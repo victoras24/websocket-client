@@ -1,4 +1,4 @@
-import type { BarData } from "./Chart";
+import type { BarData, ConnectionData } from "./Chart";
 
 export class websocket {
 	websocket: WebSocket;
@@ -8,10 +8,16 @@ export class websocket {
 		this.websocket = new WebSocket(this.url);
 	}
 
-	loadData = (setData: React.Dispatch<React.SetStateAction<BarData[]>>) => {
+	loadData = (
+		setBarData: React.Dispatch<React.SetStateAction<BarData[]>>,
+		setConnectionData: React.Dispatch<React.SetStateAction<ConnectionData[]>>
+	) => {
 		this.websocket.onmessage = (e) => {
-			console.log(e.data);
-			setData(JSON.parse(e.data));
+			if (JSON.parse(e.data).type === "players") {
+				setBarData(JSON.parse(e.data).data);
+			} else if (JSON.parse(e.data).type === "connections") {
+				setConnectionData(JSON.parse(e.data).data);
+			}
 		};
 	};
 
