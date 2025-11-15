@@ -17,6 +17,8 @@ export class websocket {
 				setBarData(JSON.parse(e.data).data);
 			} else if (JSON.parse(e.data).type === "connections") {
 				setConnectionData(JSON.parse(e.data).data);
+			} else {
+				setBarData(JSON.parse(e.data));
 			}
 		};
 	};
