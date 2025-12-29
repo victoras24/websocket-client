@@ -1,0 +1,12 @@
+{
+	"$schema": "https://aka.ms/azure/static-web-apps-cli/schema",
+	"configurations": {
+		"websocket-client": {
+			"appLocation": ".",
+			"outputLocation": "dist",
+			"appBuildCommand": "npx vite build",
+			"run": "npx vite",
+			"appDevserverUrl": "http://localhost:3000"
+		}
+	}
+}

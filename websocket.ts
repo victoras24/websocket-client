@@ -2,7 +2,8 @@ import type { BarData, ConnectionData } from "./Chart";
 
 export class websocket {
 	websocket: WebSocket;
-	url: string = "ws://localhost:8080";
+	url: string =
+		"wss://websocketfromscratch-dbhde4c3dvcbarcb.westeurope-01.azurewebsites.net/ws";
 
 	constructor() {
 		this.websocket = new WebSocket(this.url);
